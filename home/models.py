@@ -10,11 +10,25 @@ from wagtail.documents.models import Document, AbstractDocument
 class HomePage(Page):
     pass
 
-class Book(Page):
+class FAQPage(Page):
+    intro = models.CharField(max_length=250)
+    body = RichTextField(blank=True)
+
+    search_fields = Page.search_fields + [
+        index.SearchField('intro'),
+        index.SearchField('body'),
+    ]
+
+    content_panels = Page.content_panels + [
+        FieldPanel('intro'),
+        FieldPanel('body', classname="full"),
+    ]
+
+class BookPage(Page):
     intro = models.CharField(max_length=250)
     body = RichTextField(blank=True)
     date = models.DateField("Post date")
-    source = models.CharField(
+    author = models.CharField(
         max_length=255,
         # This must be set to allow Wagtail to create a document instance
         # on upload.
@@ -24,18 +38,50 @@ class Book(Page):
 
     admin_form_fields = Document.admin_form_fields + (
         # Add all custom fields names to make them appear in the form:
-        'source',
+        'author',
     )
 
     search_fields = Page.search_fields + [
         index.SearchField('intro'),
         index.SearchField('body'),
-        index.SearchField('source'),
+        index.SearchField('author'),
     ]
 
     content_panels = Page.content_panels + [
         FieldPanel('intro'),
         FieldPanel('body', classname="full"),
         FieldPanel('date'),
-        FieldPanel('source'),
+        FieldPanel('author'),
     ]
+
+
+class StandartPage(Page):
+    intro = models.CharField(max_length=250)
+    body = RichTextField(blank=True)
+    date = models.DateField("Post date")
+    author = models.CharField(
+        max_length=255,
+        # This must be set to allow Wagtail to create a document instance
+        # on upload.
+        blank=True,
+        null=True
+    )
+
+    admin_form_fields = Document.admin_form_fields + (
+        # Add all custom fields names to make them appear in the form:
+        'author',
+    )
+
+    search_fields = Page.search_fields + [
+        index.SearchField('intro'),
+        index.SearchField('body'),
+        index.SearchField('author'),
+    ]
+
+    content_panels = Page.content_panels + [
+        FieldPanel('intro'),
+        FieldPanel('body', classname="full"),
+        FieldPanel('date'),
+        FieldPanel('author'),
+    ]
+
