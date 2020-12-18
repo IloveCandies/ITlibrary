@@ -1,5 +1,5 @@
 # ITlibrary
-Open - sourse библиотека связнная с IT
+Open - source библиотека связнная с IT
 
 Требования:
 Django
