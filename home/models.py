@@ -30,14 +30,11 @@ class BookPage(Page):
     date = models.DateField("Post date")
     author = models.CharField(
         max_length=255,
-        # This must be set to allow Wagtail to create a document instance
-        # on upload.
         blank=True,
         null=True
     )
 
     admin_form_fields = Document.admin_form_fields + (
-        # Add all custom fields names to make them appear in the form:
         'author',
     )
 
@@ -60,15 +57,12 @@ class StandartPage(Page):
     body = RichTextField(blank=True)
     date = models.DateField("Post date")
     author = models.CharField(
-        max_length=255,
-        # This must be set to allow Wagtail to create a document instance
-        # on upload.
+        max_length=255
         blank=True,
         null=True
     )
 
     admin_form_fields = Document.admin_form_fields + (
-        # Add all custom fields names to make them appear in the form:
         'author',
     )
 
