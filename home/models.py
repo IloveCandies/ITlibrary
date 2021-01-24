@@ -7,8 +7,23 @@ from wagtail.search import index
 from wagtail.documents.models import Document, AbstractDocument
 
 
+
+
 class HomePage(Page):
-    pass
+    intro = RichTextField(blank=True)
+
+    content_panels = Page.content_panels + [
+        FieldPanel('intro', classname='full'),
+    ]
+    def get_context(self, request):
+        context = super().get_context(request)
+
+        # Add extra variables and return the updated context
+        context[''] = HomePage.objects.child_of(self).live()
+        return context
+
+    subpage_types = ['home.ContentPage','FAQPage']
+
 
 class FAQPage(Page):
     intro = models.CharField(max_length=250)
@@ -23,6 +38,22 @@ class FAQPage(Page):
         FieldPanel('intro'),
         FieldPanel('body', classname="full"),
     ]
+
+class ContentPage(Page):
+    intro = RichTextField(blank=True)
+
+    content_panels = Page.content_panels + [
+        FieldPanel('intro', classname='full'),
+    ]
+    def get_context(self, request):
+        context = super().get_context(request)
+
+        # Add extra variables and return the updated context
+        context[''] = ContentPage.objects.child_of(self).live()
+        return context
+
+    subpage_types = ['home.BookPage','StandartPage']
+
 
 class BookPage(Page):
     intro = models.CharField(max_length=250)
@@ -53,6 +84,7 @@ class BookPage(Page):
         FieldPanel('date'),
         FieldPanel('author'),
     ]
+    parent_page_types = ['home.ContentPage']
 
 
 class StandartPage(Page):
@@ -84,4 +116,5 @@ class StandartPage(Page):
         FieldPanel('date'),
         FieldPanel('author'),
     ]
+    parent_page_types = ['home.ContentPage']
 

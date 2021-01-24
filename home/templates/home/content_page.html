@@ -1,12 +1,18 @@
 {% extends "base.html" %}
 {% load wagtailcore_tags %}
 {% load static %}
+
 {% block body_class %}template-homepage{% endblock %}
+
 {% block extra_css %}
+
+{% comment %}
+Delete the line below if you're just getting started and want to remove the welcome screen!
+{% endcomment %}
 <link rel="stylesheet" href="https://purecss.io/layouts/side-menu/styles.css">
 {% endblock extra_css %}
+
 {% block content %}
-<body>
 <div id="layout">
     <!-- Menu toggle -->
     <a href="#menu" id="menuLink" class="menu-link">
@@ -19,7 +25,7 @@
             <a class="pure-menu-heading" href="#company">ITlibrary</a>
 
             <ul class="pure-menu-list">
-                <li class="pure-menu-item"><a href="/catalog" class="pure-menu-link">Каталог</a></li>
+                <li class="pure-menu-item menu-item-divided pure-menu-selected "><a href="/catalog" class="pure-menu-link">Каталог</a></li>
                 <li class="pure-menu-item"><a href="#about" class="pure-menu-link">FAQ</a></li>
                 <li class="pure-menu-item"><a href="#nda" class="pure-menu-link">NDA</a></li>
                 <li class="pure-menu-item"><a href="#support" class="pure-menu-link">Поддержать</a></li>
@@ -30,21 +36,20 @@
     </div>
     <div id="">
         <div class="header">
-            <h1>Приветствуем на ITlibrary </h1>
-            <h3>Здесь вы можете скачать и загрузить книги и стандарты (ГОСТ, ISO, etc) связанные с  IT </h3>
+            <div class="intro"><h1>{{ self.intro|richtext }}</h1></div>
         </div>
-        <div class="content">
-            <h2 class="">Дисклеймер</h2>
-            <p>Контент на сайт загружают пользователи</p>
-               Администрация не несет ответственность за загруженные файлы
-            <h2 class="">Если вы правообладатель и увидели свою книгу</h2>
-            <p>
-            Если книга нарушает право обладания или распространяемую лицензию администрация удалит её 
-            Для связи с администрацией напишите на exemple@ex.com
-            </p>
-
+        <div class="content">           
+            {% for post in page.get_children %}
+                {% with post=post.specific %}
+                    <h1 class="">{{ post.intro }}</h1>
+                    <p>{{ post.body|richtext }}</p>
+                    <p>{{ post.date }} {{ post.author }}</p>
+                    <br>
+                {% endwith %}
+            {% endfor %}        
         </div>
     </div>
 </div>
 </body>
 {% endblock content %}
+    

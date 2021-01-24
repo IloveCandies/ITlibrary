@@ -18,14 +18,13 @@
         <meta name="viewport" content="width=device-width, initial-scale=1" />
 
         {# Global stylesheets #}
-        <link rel="stylesheet" type="text/css" href="{% static 'css/mysite.css' %}">
-
+        <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.5/build/pure-min.css" integrity="sha384-LTIDeidl25h2dPxrB2Ekgc9c7sEC3CWGM6HeFmuDNUjX76Ert4Z4IY714dhZHPLd" crossorigin="anonymous">
         {% block extra_css %}
-            {# Override this in templates to add extra stylesheets #}
+        <link rel="stylesheet" href="https://purecss.io/layouts/side-menu/styles.css">      
         {% endblock %}
     </head>
 
-    <body class="{% block body_class %}{% endblock %}">
+    <body class="">
         {% wagtailuserbar %}
 
         {% block content %}{% endblock %}
