@@ -90,8 +90,6 @@ class StandartPage(Page):
     date = models.DateField("Post date")
     author = models.CharField(
         max_length=255
-        blank=True,
-        null=True
     )
 
     admin_form_fields = Document.admin_form_fields + (
