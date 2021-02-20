@@ -10,9 +10,16 @@
 Delete the line below if you're just getting started and want to remove the welcome screen!
 {% endcomment %}
 <link rel="stylesheet" href="https://purecss.io/layouts/side-menu/styles.css">
+<script type="text/javascript" src="https://vk.com/js/api/openapi.js?168"></script>
+
+<script type="text/javascript">
+  VK.init({apiId: 7767972, onlyWidgets: true});
+</script>
+
 {% endblock extra_css %}
 
 {% block content %}
+
 <div id="layout">
     <!-- Menu toggle -->
     <a href="#menu" id="menuLink" class="menu-link">
@@ -22,34 +29,31 @@ Delete the line below if you're just getting started and want to remove the welc
 
     <div id="menu">
         <div class="pure-menu">
-            <a class="pure-menu-heading" href="#company">ITlibrary</a>
+            <a class="pure-menu-heading" href="../">ITlibrary</a>
 
             <ul class="pure-menu-list">
-                <li class="pure-menu-item "><a href="/catalog" class="pure-menu-link">Каталог</a></li>
-                <li class="pure-menu-item"><a href="#about" class="pure-menu-link">FAQ</a></li>
-                <li class="pure-menu-item"><a href="#nda" class="pure-menu-link">NDA</a></li>
-                <li class="pure-menu-item menu-item-divided pure-menu-selected"><a href="#support" class="pure-menu-link">Поддержать</a></li>
-                <li class="pure-menu-item"><a href="#upload" class="pure-menu-link">Загрузить   </a></li>
+                <li class="pure-menu-item"><a href="/catalog" class="pure-menu-link">Каталог</a></li>
+                <li class="pure-menu-item"><a href="/faq" class="pure-menu-link">FAQ</a></li>
+                <li class="pure-menu-item"><a href="/support" class="pure-menu-link">Поддержать</a></li>
+                <li class="pure-menu-item"><a href="/upload" class="pure-menu-link">Загрузить   </a></li>
                 
             </ul>
         </div>
     </div>
     <div id="">
         <div class="header">
-            <div class="intro"><h1>{{ self.intro|richtext }}</h1></div>
+            <div class="intro"><h1>{{ self.intro|richtext }}</h1>
         </div>
         <div class="content">           
-            {% for post in page.get_children %}
-                {% with post=post.specific %}
-                    <h1 class="">{{ post.intro }}</h1>
-                    <p>{{ post.body|richtext }}</p>
-                    <p>{{ post.date }} {{ post.author }}</p>
-                    <br>
-                {% endwith %}
-            {% endfor %}        
+                    <p>{{ self.body|richtext }} {{ self.date }} {{ self.author }}</p>
+                    <br>    
+                    <div id="vk_comments"></div>
+                    <script type="text/javascript">
+                    VK.Widgets.Comments("vk_comments", {limit: 15, attach: "*"});
+                    </script>
         </div>
     </div>
-</div>
+<div>
 </body>
 {% endblock content %}
     

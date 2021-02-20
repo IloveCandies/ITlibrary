@@ -22,9 +22,9 @@ class HomePage(Page):
         context[''] = HomePage.objects.child_of(self).live()
         return context
 
-    subpage_types = ['home.ContentPage','FAQPage','nda_Page','SupportPage']
+    subpage_types = ['home.ContentPage','FAQPage','SupportPage']
 
-
+  
 class FAQPage(Page):
     intro = models.CharField(max_length=250)
     body = RichTextField(blank=True)
@@ -110,30 +110,6 @@ class StandartPage(Page):
     ]
     parent_page_types = ['home.ContentPage']
 
-class nda_Page(Page):
-    intro = models.CharField(max_length=250)
-    body = RichTextField(blank=True)
-    date = models.DateField("Post date")
-    author = models.CharField(
-        max_length=255
-    )
-
-    admin_form_fields = Document.admin_form_fields + (
-        'author',
-    )
-
-    search_fields = Page.search_fields + [
-        index.SearchField('intro'),
-        index.SearchField('body'),
-        index.SearchField('author'),
-    ]
-
-    content_panels = Page.content_panels + [
-        FieldPanel('intro'),
-        FieldPanel('body', classname="full"),
-        FieldPanel('date'),
-        FieldPanel('author'),
-    ]
 
 class SupportPage(Page):
     intro = models.CharField(max_length=250)
